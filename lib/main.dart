@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watchhub/utils/theme/theme.dart';
 
 void main() {
   runApp(const App());
@@ -10,12 +11,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       themeMode: ThemeMode.system,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: WatchHubTheme.lightTheme,
+      darkTheme: WatchHubTheme.darkTheme,
       
     );
   }
