@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:watchhub/features/authentication/screen/onboarding/onboarding.dart';
 import 'package:watchhub/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -6,10 +8,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       themeMode: ThemeMode.system,
       theme: WatchHubTheme.lightTheme,
       darkTheme: WatchHubTheme.darkTheme,
+      debugShowCheckedModeBanner: false,
+      home: const OnBoardingScreen(),
     );
   }
 }
