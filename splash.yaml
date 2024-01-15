@@ -1,13 +1,13 @@
 flutter_native_splash:
   color: "#ffffff"
   color_dark: "#272727"
-  image: assets/logos/watchhub-splash-logo-black.png
-  image_dark: assets/logos/watchhub-splash-logo-white.png
+  image: assets/logos/watchhub-splash-logo.png
+  image_dark: assets/logos/watchhub-splash-logo.png
 
   android_12:
     color: "#ffffff"
     color_dark: "#272727"
-    image: assets/logos/watchhub-splash-logo-black.png
-    image_dark: assets/logos/watchhub-splash-logo-white.png
+    image: assets/logos/watchhub-splash-logo.png
+    image_dark: assets/logos/watchhub-splash-logo.png
 
   web: false

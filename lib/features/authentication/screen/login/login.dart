@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:watchhub/common/style/spacing_styles.dart';
+import 'package:watchhub/common/styles/spacing_styles.dart';
 import 'package:watchhub/common/widgets/login_signup/form_divider.dart';
 import 'package:watchhub/common/widgets/login_signup/social_buttons.dart';
 import 'package:watchhub/features/authentication/screen/login/widgets/login_form.dart';

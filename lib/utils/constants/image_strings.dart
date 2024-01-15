@@ -1,8 +1,8 @@
 class WatchHubImages {
   
   // App logos 
-  static const String darkAppLogo = 'assets/logos/watchhub-splash-logo-black.png';
-  static const String lightAppLogo = 'assets/logos/watchhub-splash-logo-white.png';
+  static const String darkAppLogo = 'assets/logos/watchhub-logo.png';
+  static const String lightAppLogo = 'assets/logos/watchhub-logo.png';
 
   // Social logos
   static const String google = 'assets/logos/google-icon.png';
@@ -21,4 +21,18 @@ class WatchHubImages {
   static const String deliveredEmailIllustration = "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const String verifyIllustration = "assets/images/animations/sammy-line-travel-backpack-with-passport-and-air-ticket.gif";
 
+  // Categories Icon
+
+  static const String dressIcon = "assets/icons/categories/dress_category.png";
+  static const String fitnessIcon = "assets/icons/categories/fitness_category.png";
+  static const String hybridIcon = "assets/icons/categories/hybrid_category.png";
+  static const String kidsIcon = "assets/icons/categories/kids_category.png";
+  static const String ladiesIcon = "assets/icons/categories/ladies_category.png";
+  static const String luxuryIcon = "assets/icons/categories/luxury_category.png";
+  static const String smartIcon = "assets/icons/categories/smart_category.png";
+
+  //banners
+  static const String promoBanner1 = "assets/images/banners/promobanner1.jpg";
+  static const String promoBanner2 = "assets/images/banners/promobanner2.jpg";
+  static const String promoBanner3 = "assets/images/banners/promobanner3.jpg";
 }

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:watchhub/common/style/spacing_styles.dart";
+import 'package:watchhub/common/styles/spacing_styles.dart';
 import "package:watchhub/utils/constants/sizes.dart";
 import "package:watchhub/utils/constants/text_strings.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
