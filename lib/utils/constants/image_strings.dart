@@ -35,4 +35,14 @@ class WatchHubImages {
   static const String promoBanner1 = "assets/images/banners/promobanner1.jpg";
   static const String promoBanner2 = "assets/images/banners/promobanner2.jpg";
   static const String promoBanner3 = "assets/images/banners/promobanner3.jpg";
+
+  // brands
+
+  static const String appleLogo = "assets/icons/brands/apple_logo.png";
+  static const String samsungLogo = "assets/icons/brands/samsung_logo.png";
+  static const String adidasLogo = "assets/icons/brands/adidas_logo.png";
+  static const String citizenLogo = "assets/icons/brands/citizen_logo.png";
+  static const String rolexLogo = "assets/icons/brands/rolex_logo.png";
+  static const String gshockLogo = "assets/icons/brands/g-shock_logo.png";
+
 }

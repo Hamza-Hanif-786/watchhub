@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/rendering.dart";
 import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/styles/shadows.dart";
 import "package:watchhub/common/widgets/custom_shapes/containers/rounded_container.dart";
@@ -7,6 +6,7 @@ import "package:watchhub/common/widgets/icons/wh_circular_icon.dart";
 import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
+import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
 import "package:watchhub/utils/constants/colors.dart";
 import "package:watchhub/utils/constants/image_strings.dart";
 import "package:watchhub/utils/constants/sizes.dart";
@@ -69,48 +69,52 @@ class WHProductCardVertical extends StatelessWidget {
             const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
       
             /// ------ Details
-            Padding(
-              padding: const EdgeInsets.only(left: WatchHubSizes.sm),
+            const Padding(
+              padding: EdgeInsets.only(left: WatchHubSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const WHProductTitleText(title: 'Smart Watch', smallSize: true),
-                  const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
-                  Row(
-                    children: [
-                      Text("Apple", overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.labelMedium),
-                      const SizedBox(width: WatchHubSizes.xs),
-                      const Icon(Iconsax.verify5, color: WatchHubColors.primary, size: WatchHubSizes.iconXs,)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Price
-                      const WHProductPriceText(price: '35.0', isLarge: true,),
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: WatchHubColors.dark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(WatchHubSizes.cardRadiusMd),
-                            bottomRight: Radius.circular(WatchHubSizes.productImageRadius)
-                          )
-                        ),
-                        child: const SizedBox(
-                          width: WatchHubSizes.iconLg * 1.2,
-                          height: WatchHubSizes.iconLg * 1.2,
-                          child: Center(
-                            child: Icon(
-                              Iconsax.add, 
-                              color: WatchHubColors.white
-                            ),
-                          )
-                        ),
-                      )
-                    ]
+                  WHProductTitleText(title: 'Smart Watch', smallSize: true),
+                  SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
+                  WHBrandTitleWithVerifiedIcon(
+                    title: 'Apple',
                   )
                 ],
               ),
+            ),
+
+            const Spacer(),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Price
+                const Padding(
+                  padding: EdgeInsets.only(left: WatchHubSizes.sm),
+                  child: WHProductPriceText(price: '35.0'),
+                ),
+
+                // Add to cart button
+                Container(
+                  decoration: const BoxDecoration(
+                    color: WatchHubColors.dark,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(WatchHubSizes.cardRadiusMd),
+                      bottomRight: Radius.circular(WatchHubSizes.productImageRadius)
+                    )
+                  ),
+                  child: const SizedBox(
+                    width: WatchHubSizes.iconLg * 1.2,
+                    height: WatchHubSizes.iconLg * 1.2,
+                    child: Center(
+                      child: Icon(
+                        Iconsax.add, 
+                        color: WatchHubColors.white
+                      ),
+                    )
+                  ),
+                )
+              ]
             )
       
           ],

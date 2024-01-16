@@ -69,10 +69,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),
 
                   /// ---- Popular Products
-                  WHGridLayout(
-                    itemCount: 6, 
-                    itemBuilder: (_ , index) =>  const WHProductCardVertical(),
-                  ),
+                  WHGridLayout(itemCount: 6, itemBuilder: (_ , index) =>  const WHProductCardVertical()),
                 ],
               )
             )

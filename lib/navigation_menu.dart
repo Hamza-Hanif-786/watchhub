@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 import "package:watchhub/features/shop/screen/home/home.dart";
+import "package:watchhub/features/shop/screen/store/store.dart";
 import "package:watchhub/utils/constants/colors.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
 
@@ -52,7 +53,7 @@ class NavigationController extends GetxController{
 
   final screens = [
     const HomeScreen(),
-    Container(color: Colors.blue),
+    const StoreScreen(),
     Container(color: Colors.yellow),
     Container(color: Colors.red),
   ];
