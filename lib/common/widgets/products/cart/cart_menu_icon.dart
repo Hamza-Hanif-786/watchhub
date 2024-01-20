@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:watchhub/features/shop/screen/cart/cart.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 
 class WHCartCounterIcon extends StatelessWidget {
   const WHCartCounterIcon({
-    super.key, required this.onPressed, required this.iconColor,
+    super.key, required this.iconColor,
   });
 
-  final VoidCallback onPressed;
   final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        IconButton(onPressed: onPressed, icon: Icon(Iconsax.shopping_bag, color: iconColor)),
+        IconButton(onPressed: () => Get.to(() => const CartScreen()), icon: Icon(Iconsax.shopping_bag, color: iconColor)),
         Positioned(
           right: 0,
           child: Container(
             width: 18,
             height: 18,
             decoration: BoxDecoration(
-              color: WatchHubColors.black,
+              color: WatchHubColors.dark,
               borderRadius: BorderRadius.circular(100)
             ),
             child: Center(

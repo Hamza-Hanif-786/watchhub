@@ -35,11 +35,13 @@ class WHCircularImage extends StatelessWidget {
         color: backgroundColor ?? (dark ? WatchHubColors.black : WatchHubColors.white),
         borderRadius: BorderRadius.circular(100)
       ),
-      child: Center(
-        child: Image(
-          fit: fit,
-          image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
-          color: overlayColor,
+      child: ClipOval(
+        child: Center(
+          child: Image(
+            fit: fit,
+            image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
+            color: overlayColor,
+          ),
         ),
       ),
     );

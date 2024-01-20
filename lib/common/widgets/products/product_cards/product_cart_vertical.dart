@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/styles/shadows.dart";
 import "package:watchhub/common/widgets/custom_shapes/containers/rounded_container.dart";
@@ -7,7 +8,9 @@ import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
 import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
+import "package:watchhub/features/shop/screen/product_details/product_detail.dart";
 import "package:watchhub/utils/constants/colors.dart";
+import "package:watchhub/utils/constants/enums.dart";
 import "package:watchhub/utils/constants/image_strings.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
@@ -20,7 +23,7 @@ class WHProductCardVertical extends StatelessWidget {
     final dark = WatchHubHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Get.to(() => const ProductDetailScreen(), transition: Transition.rightToLeftWithFade),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -70,21 +73,26 @@ class WHProductCardVertical extends StatelessWidget {
       
             /// ------ Details
             const Padding(
-              padding: EdgeInsets.only(left: WatchHubSizes.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  WHProductTitleText(title: 'Smart Watch', smallSize: true),
-                  SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
-                  WHBrandTitleWithVerifiedIcon(
-                    title: 'Apple',
-                  )
-                ],
+              padding: EdgeInsets.symmetric(horizontal: WatchHubSizes.sm),
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WHProductTitleText(title: 'Smart Watch', smallSize: false),
+                    SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
+                    WHBrandTitleWithVerifiedIcon(
+                      title: 'Apple',
+                      brandTextSize: TextSizes.medium,
+                    )
+                  ],
+                ),
               ),
             ),
 
             const Spacer(),
 
+            /// ------ Price, Add to cart
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -106,12 +114,7 @@ class WHProductCardVertical extends StatelessWidget {
                   child: const SizedBox(
                     width: WatchHubSizes.iconLg * 1.2,
                     height: WatchHubSizes.iconLg * 1.2,
-                    child: Center(
-                      child: Icon(
-                        Iconsax.add, 
-                        color: WatchHubColors.white
-                      ),
-                    )
+                    child: Center(child: Icon(Iconsax.add, color: WatchHubColors.white)),
                   ),
                 )
               ]

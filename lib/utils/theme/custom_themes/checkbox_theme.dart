@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watchhub/utils/constants/colors.dart';
 
 class WatchHubCheckboxTheme {
   WatchHubCheckboxTheme._();
@@ -7,14 +8,14 @@ class WatchHubCheckboxTheme {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     checkColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.white;
+        return WatchHubColors.white;
       } else {
-        return Colors.black;
+        return WatchHubColors.black;
       }
     }),
     fillColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.blue;
+        return WatchHubColors.primary;
       } else {
         return Colors.transparent;
       }
@@ -25,14 +26,14 @@ class WatchHubCheckboxTheme {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     checkColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.white;
+        return WatchHubColors.white;
       } else {
-        return Colors.black;
+        return WatchHubColors.black;
       }
     }),
     fillColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.blue;
+        return WatchHubColors.primary;
       } else {
         return Colors.transparent;
       }

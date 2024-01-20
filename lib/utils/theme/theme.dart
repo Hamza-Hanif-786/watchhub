@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watchhub/utils/constants/colors.dart';
 import 'custom_themes/appbar_theme.dart';
 import 'custom_themes/bottom_sheet_theme.dart';
 import 'custom_themes/checkbox_theme.dart';
@@ -18,7 +19,7 @@ class WatchHubTheme {
     primaryColor: Colors.blue,
     textTheme: WatchHubTextTheme.lightTextTheme,
     chipTheme: WatchHubChipTheme.lightChipTheme,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: WatchHubColors.white,
     appBarTheme: WatchHubAppBarTheme.lightAppBarTheme,
     checkboxTheme: WatchHubCheckboxTheme.lightCheckboxTheme,
     bottomSheetTheme: WatchHubBottomSheetTheme.lightBottomSheetTheme,
@@ -34,7 +35,7 @@ class WatchHubTheme {
     primaryColor: Colors.blue,
     textTheme: WatchHubTextTheme.darkTextTheme,
     chipTheme: WatchHubChipTheme.darkChipTheme,
-    scaffoldBackgroundColor: Colors.black,
+    scaffoldBackgroundColor: WatchHubColors.black,
     appBarTheme: WatchHubAppBarTheme.darkAppBarTheme,
     checkboxTheme: WatchHubCheckboxTheme.darkCheckboxTheme,
     bottomSheetTheme: WatchHubBottomSheetTheme.darkBottomSheetTheme,

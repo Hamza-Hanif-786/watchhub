@@ -19,9 +19,8 @@ class WHHomeAppBar extends StatelessWidget {
           Text(WatchHubTextStrings.homeAppbarSubTitle, style: Theme.of(context).textTheme.headlineSmall!.apply(color: WatchHubColors.white)),
         ],
       ),
-      actions: [
+      actions: const [
         WHCartCounterIcon(
-          onPressed: () {},
           iconColor: WatchHubColors.white,
         )
       ],

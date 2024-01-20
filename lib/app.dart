@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       theme: WatchHubTheme.lightTheme,
       darkTheme: WatchHubTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const OnBoardingScreen(),
+      home: const OnBoardingScreen()
     );
   }
 }

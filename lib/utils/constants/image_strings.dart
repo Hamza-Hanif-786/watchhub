@@ -32,6 +32,7 @@ class WatchHubImages {
   static const String smartIcon = "assets/icons/categories/smart_category.png";
 
   //banners
+
   static const String promoBanner1 = "assets/images/banners/promobanner1.jpg";
   static const String promoBanner2 = "assets/images/banners/promobanner2.jpg";
   static const String promoBanner3 = "assets/images/banners/promobanner3.jpg";
@@ -45,4 +46,18 @@ class WatchHubImages {
   static const String rolexLogo = "assets/icons/brands/rolex_logo.png";
   static const String gshockLogo = "assets/icons/brands/g-shock_logo.png";
 
+  // Profile
+  static const String user = "assets/images/user/user.png";
+
+  // Payment Methods
+  static const String paypal = "assets/icons/payment_methods/paypal.png";
+  static const String applePay = "assets/icons/payment_methods/apple_pay.png";
+  static const String googlePay = "assets/icons/payment_methods/google_pay.png";
+  static const String mastercard = "assets/icons/payment_methods/mastercard.png";
+  static const String visa = "assets/icons/payment_methods/Visa.jpg";
+  static const String paytm = "assets/icons/payment_methods/paytm.png";
+  static const String paystack = "assets/icons/payment_methods/paystack.png";
+  static const String creditcard = "assets/icons/payment_methods/creditcard.png";
+  static const String successfulPaymentIcon = "assets/icons/payment_methods/successful_payment.gif";
+  
 }

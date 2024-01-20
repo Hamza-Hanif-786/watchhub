@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:watchhub/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:watchhub/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:watchhub/common/widgets/layouts/grid_layout.dart';
 import 'package:watchhub/common/widgets/products/product_cards/product_cart_vertical.dart';
 import 'package:watchhub/common/widgets/texts/section_heading.dart';
+import 'package:watchhub/features/shop/screen/all_products/all_products.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/home_appbar.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/home_categories.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/promo_slider.dart';
@@ -45,9 +47,11 @@ class HomeScreen extends StatelessWidget {
 
                         /// Categories
                         WHHomeCategories(),
+
                       ],
                     ),
                   ),
+                  SizedBox(height: WatchHubSizes.spaceBtwSections,)
                 ],
               ),
             ),
@@ -65,8 +69,11 @@ class HomeScreen extends StatelessWidget {
                       WatchHubImages.promoBanner3
                     ]
                   ),
-
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),
+
+                  /// -- Heading
+                  WHSectionHeading(title: "Popular Products", onPressed: () => Get.to(() => const AllProducts()), showActionButton: true),
+                  const SizedBox(height: WatchHubSizes.spaceBtwItems),
 
                   /// ---- Popular Products
                   WHGridLayout(itemCount: 6, itemBuilder: (_ , index) =>  const WHProductCardVertical()),
