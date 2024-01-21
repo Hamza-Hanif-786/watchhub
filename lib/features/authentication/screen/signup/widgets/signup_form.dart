@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:watchhub/features/authentication/screen/signup/verify_email.dart';
+import 'package:watchhub/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
 import 'package:watchhub/utils/constants/text_strings.dart';
 import 'package:watchhub/utils/helpers/helper_functions.dart';
+import 'package:watchhub/utils/validators/validation.dart';
 
 class WHSignUpForm extends StatelessWidget {
   const WHSignUpForm({super.key});
@@ -13,8 +14,10 @@ class WHSignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = WatchHubHelperFunctions.isDarkMode(context);
-    
+    final controller = Get.put(SignupController());
+
     return Form(
+      key: controller.signupFormKey,
       child: Column(
         children: [
           /// First Name & Last Name
@@ -22,6 +25,8 @@ class WHSignUpForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  controller: controller.firstName,
+                  validator: (value) => WatchHubValidator.validateEmptyText('First name', value),
                   expands: false,
                   cursorOpacityAnimates: true,
                   decoration: const InputDecoration(
@@ -35,6 +40,8 @@ class WHSignUpForm extends StatelessWidget {
     
               Expanded(
                 child: TextFormField(
+                  controller: controller.lastName,
+                  validator: (value) => WatchHubValidator.validateEmptyText('Last name', value),
                   expands: false,
                   cursorOpacityAnimates: true,
                   decoration: const InputDecoration(
@@ -49,6 +56,8 @@ class WHSignUpForm extends StatelessWidget {
     
           /// Username
           TextFormField(
+            controller: controller.username,
+            validator: (value) => WatchHubValidator.validateEmptyText('Username', value),
             expands: false,
             cursorOpacityAnimates: true,
             decoration: const InputDecoration(
@@ -60,6 +69,8 @@ class WHSignUpForm extends StatelessWidget {
     
           /// Email
           TextFormField(
+            controller: controller.email,
+            validator: (value) => WatchHubValidator.validateEmail(value),
             cursorOpacityAnimates: true,
             decoration: const InputDecoration(
               prefixIcon: Icon(Iconsax.direct),
@@ -70,6 +81,8 @@ class WHSignUpForm extends StatelessWidget {
     
           /// Phone Number
           TextFormField(
+            controller: controller.phoneNumber,
+            validator: (value) => WatchHubValidator.validatePhoneNumber(value),
             cursorOpacityAnimates: true,
             decoration: const InputDecoration(
               prefixIcon: Icon(Iconsax.call),
@@ -79,13 +92,20 @@ class WHSignUpForm extends StatelessWidget {
           const SizedBox(height: WatchHubSizes.spaceBtwInputFields),
     
           /// Password
-          TextFormField(
-            obscureText: true,
-            cursorOpacityAnimates: true,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
-              labelText: WatchHubTextStrings.password
+          Obx(
+            () => TextFormField(
+              controller: controller.password,
+              validator: (value) => WatchHubValidator.validatePassword(value),
+              obscureText: controller.hidePassword.value,
+              cursorOpacityAnimates: true,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Iconsax.password_check),
+                suffixIcon: IconButton(
+                  icon: Icon(controller.hidePassword.value ? Iconsax.eye_slash : Iconsax.eye), 
+                  onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
+                ),
+                labelText: WatchHubTextStrings.password
+              ),
             ),
           ),
           const SizedBox(height: WatchHubSizes.spaceBtwSections),
@@ -94,11 +114,12 @@ class WHSignUpForm extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 24,
-                height: 24,
-                child: Checkbox(
-                  value: true,
-                  onChanged: (value) {},
+                width: 24, height: 24,
+                child: Obx(
+                  () => Checkbox(
+                    value: controller.privacyPolicy.value, 
+                    onChanged: (value) => controller.privacyPolicy.value = !controller.privacyPolicy.value,
+                  )
                 ),
               ),
               const SizedBox(width: WatchHubSizes.spaceBtwItems),
@@ -126,7 +147,7 @@ class WHSignUpForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => const VerifyEmailScreen(),transition: Transition.fadeIn),
+              onPressed: () => controller.signup(),
               child: const Text(WatchHubTextStrings.createAccount),
             ),
           )

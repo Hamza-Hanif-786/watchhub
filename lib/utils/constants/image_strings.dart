@@ -20,6 +20,7 @@ class WatchHubImages {
   static const String deliveredInPlaneIllustration = "assets/images/animations/sammy-line-come-back-later.png";
   static const String deliveredEmailIllustration = "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const String verifyIllustration = "assets/images/animations/sammy-line-travel-backpack-with-passport-and-air-ticket.gif";
+  static const String docerAnimation = "assets/images/animations/animation-of-docer.json";
 
   // Categories Icon
 
@@ -58,6 +59,6 @@ class WatchHubImages {
   static const String paytm = "assets/icons/payment_methods/paytm.png";
   static const String paystack = "assets/icons/payment_methods/paystack.png";
   static const String creditcard = "assets/icons/payment_methods/creditcard.png";
-  static const String successfulPaymentIcon = "assets/icons/payment_methods/successful_payment.gif";
-  
+  static const String successfulPaymentIcon = "assets/icons/payment_methods/successful_payment.png";
+
 }
