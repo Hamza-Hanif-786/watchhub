@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:watchhub/common/widgets/images/wh_circular_image.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
-import 'package:watchhub/utils/helpers/helper_functions.dart';
 
 class WHVerticalImageText extends StatelessWidget {
   const WHVerticalImageText({
@@ -11,16 +11,17 @@ class WHVerticalImageText extends StatelessWidget {
     this.textColor = WatchHubColors.white, 
     this.backgroundColor = WatchHubColors.white, 
     this.onTap,
+    this.isNetworkImage = true
   });
 
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
-    final dark = WatchHubHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -29,17 +30,12 @@ class WHVerticalImageText extends StatelessWidget {
         child: Column(
           children: [
             /// Circular Icon
-            Container(
-              height: 56,
-              width: 56,
-              padding: const EdgeInsets.all(WatchHubSizes.sm),
-              decoration: BoxDecoration(
-                color: backgroundColor ?? (dark ? WatchHubColors.black : WatchHubColors.white),
-                borderRadius: BorderRadius.circular(100)
-              ),
-              child: Center(
-                child: Image(image: AssetImage(image), fit: BoxFit.cover),
-              ),
+            WHCircularImage(
+              image: image,
+              fit: BoxFit.fitWidth,
+              padding: WatchHubSizes.sm * 1.4,
+              isNetworkImage: isNetworkImage,
+              backgroundColor: backgroundColor,
             ),
         
             const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),

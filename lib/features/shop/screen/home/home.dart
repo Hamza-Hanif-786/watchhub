@@ -4,12 +4,13 @@ import 'package:watchhub/common/widgets/custom_shapes/containers/primary_header_
 import 'package:watchhub/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:watchhub/common/widgets/layouts/grid_layout.dart';
 import 'package:watchhub/common/widgets/products/product_cards/product_cart_vertical.dart';
+import 'package:watchhub/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:watchhub/common/widgets/texts/section_heading.dart';
+import 'package:watchhub/features/shop/controllers/product/product_controller.dart';
 import 'package:watchhub/features/shop/screen/all_products/all_products.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/home_appbar.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/home_categories.dart';
 import 'package:watchhub/features/shop/screen/home/widgets/promo_slider.dart';
-import 'package:watchhub/utils/constants/image_strings.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
 
 
@@ -18,6 +19,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -42,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
 
                         /// Heading
-                        WHSectionHeading(title: 'Popular Categories', showActionButton: true, textColor: Colors.white,),
+                        WHSectionHeading(title: 'Popular Categories', showActionButton: false, textColor: Colors.white,),
                         SizedBox(height: WatchHubSizes.spaceBtwItems),
 
                         /// Categories
@@ -62,21 +65,35 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// ---- Promo Slider
-                  const WHPromoSlider(
-                    banners: [
-                      WatchHubImages.promoBanner1,
-                      WatchHubImages.promoBanner2,
-                      WatchHubImages.promoBanner3
-                    ]
-                  ),
+                  const WHPromoSlider(),
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),
 
                   /// -- Heading
-                  WHSectionHeading(title: "Popular Products", onPressed: () => Get.to(() => const AllProducts()), showActionButton: true),
+                  WHSectionHeading(
+                    title: "Popular Products", 
+                    showActionButton: true,
+                    onPressed: () => Get.to(() => AllProducts(
+                      title: 'Popular Products',
+                      futureMethod: controller.fetchAllFeaturedProducts(),
+                    )), 
+                  ),
                   const SizedBox(height: WatchHubSizes.spaceBtwItems),
 
                   /// ---- Popular Products
-                  WHGridLayout(itemCount: 6, itemBuilder: (_ , index) =>  const WHProductCardVertical()),
+                  
+                  Obx(
+                    () {
+                      if(controller.isLoading.value) return const WHVerticalProductShimmer();
+                      if(controller.featuredProducts.isEmpty) {
+                        return Center(child: Text("No Data Found!", style: Theme.of(context).textTheme.bodyMedium));
+                      } else {
+                        return WHGridLayout(
+                          itemCount: controller.featuredProducts.length, 
+                          itemBuilder: (_ , index) =>  WHProductCardVertical(product: controller.featuredProducts[index]),
+                        );
+                      }
+                    }
+                  ),
                 ],
               )
             )

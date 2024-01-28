@@ -6,6 +6,7 @@ import "package:watchhub/common/widgets/custom_shapes/containers/primary_header_
 import "package:watchhub/common/widgets/list_tiles/settings_menu_tile.dart";
 import "package:watchhub/common/widgets/list_tiles/user_profile_tile.dart";
 import "package:watchhub/common/widgets/texts/section_heading.dart";
+import "package:watchhub/data/repositories/authentication/authentication_repository.dart";
 import "package:watchhub/features/personalization/screen/address/address.dart";
 import "package:watchhub/features/personalization/screen/profile/profile.dart";
 import "package:watchhub/features/shop/screen/cart/cart.dart";
@@ -116,7 +117,10 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(onPressed: () {}, child: const Text("Logout")),
+                    child: OutlinedButton(
+                      onPressed: () => AuthenticationRepository.instance.logout(), 
+                      child: const Text("Logout")
+                    ),
                   ),
                   const SizedBox(height: WatchHubSizes.spaceBtwSections * 2.5),
                 ]

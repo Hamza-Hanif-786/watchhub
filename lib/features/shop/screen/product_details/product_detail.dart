@@ -2,17 +2,21 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/widgets/texts/section_heading.dart";
+import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/bottom_add_to_cart_widget.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_attributes.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_detail_image_slider.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_meta_data.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/rating_share_widget.dart";
 import "package:watchhub/features/shop/screen/product_reviews/product_reviews.dart";
+import "package:watchhub/utils/constants/enums.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import 'package:readmore/readmore.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
+  const ProductDetailScreen({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class ProductDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             /// --- Product Image Slider
-            const WHProductImageSlider(),
+            WHProductImageSlider(product: product),
 
             /// --- Product Details
             Padding(
@@ -38,11 +42,11 @@ class ProductDetailScreen extends StatelessWidget {
                   const WHRatingAndShare(),
 
                   /// -- Price, Title, Stock & Brand
-                  const WHProductMetaData(), 
+                  WHProductMetaData(product: product), 
                   
                   /// -- Attributes
-                  const ProductAttributes(),
-                  const SizedBox(height: WatchHubSizes.spaceBtwSections),
+                  if(product.productType == ProductType.variable.toString()) ProductAttributes(product: product),
+                  const SizedBox(height: WatchHubSizes.spaceBtwSections / 2),
                   
                   /// -- Checkout Button
                   SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text("Checkout"))),
@@ -51,13 +55,13 @@ class ProductDetailScreen extends StatelessWidget {
                   /// -- Description
                   const WHSectionHeading(title: "Description", showActionButton: false,),
                   const SizedBox(height: WatchHubSizes.spaceBtwItems),
-                  const ReadMoreText("This is a Product description for white belt Apple Smart Watch. There is more things that can be added but i am just practicing and nothing less",
+                  ReadMoreText(product.description ?? '',
                   trimLines: 2,
                   trimMode: TrimMode.Line,
                   trimCollapsedText: ' Show more',
                   trimExpandedText: ' Less',
-                  moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                  lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                  moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                  lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
                    
                   /// -- Reviews

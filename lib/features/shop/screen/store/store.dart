@@ -7,6 +7,7 @@ import "package:watchhub/common/widgets/custom_shapes/containers/search_containe
 import "package:watchhub/common/widgets/layouts/grid_layout.dart";
 import "package:watchhub/common/widgets/products/cart/cart_menu_icon.dart";
 import "package:watchhub/common/widgets/texts/section_heading.dart";
+import "package:watchhub/features/shop/controllers/category_controller.dart";
 import "package:watchhub/features/shop/screen/brand/all_brands.dart";
 import "package:watchhub/features/shop/screen/store/widgets/category_tab.dart";
 import "package:watchhub/utils/constants/colors.dart";
@@ -19,9 +20,10 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = WatchHubHelperFunctions.isDarkMode(context);
+    final categories = CategoryController.instance.featuredCategories;
 
     return DefaultTabController(
-      length: 7,
+      length: categories.length,
       child: Scaffold(
         appBar: WHAppBar(
           title: Text("Store", style: Theme.of(context).textTheme.headlineMedium),
@@ -67,33 +69,16 @@ class StoreScreen extends StatelessWidget {
                 ),
       
                 /// ---- Tabs
-                bottom: const WHTabBar(
-                  tabs: [
-                    Tab(child: Text("Smart")),
-                    Tab(child: Text("Luxury")),
-                    Tab(child: Text("Hybrid")),
-                    Tab(child: Text("Fitness")),
-                    Tab(child: Text("Dress")),
-                    Tab(child: Text("Ladies")),
-                    Tab(child: Text("Kids")),
-                  ],
+                bottom: WHTabBar(
+                  tabs: categories.map((category) => Tab(child: Text(category.name))).toList(),
                 ),
               )
             ];
           },
 
           /// ---- Body
-          body: const TabBarView(
-            children: [
-              WHCategoryTab(),
-              WHCategoryTab(),
-              WHCategoryTab(),
-              WHCategoryTab(),
-              WHCategoryTab(),
-              WHCategoryTab(),
-              WHCategoryTab(),
-
-            ]
+          body: TabBarView(
+            children: categories.map((category) => WHCategoryTab(category: category)).toList(),
           )
         )
       ),

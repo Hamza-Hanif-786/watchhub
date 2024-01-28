@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:watchhub/common/widgets/shimmers/shimmer.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
 import 'package:watchhub/utils/helpers/helper_functions.dart';
@@ -37,11 +39,19 @@ class WHCircularImage extends StatelessWidget {
       ),
       child: ClipOval(
         child: Center(
-          child: Image(
-            fit: fit,
-            image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
-            color: overlayColor,
-          ),
+          child: isNetworkImage
+            ? CachedNetworkImage(
+              fit: fit,
+              color: overlayColor,
+              imageUrl: image,
+              progressIndicatorBuilder: (context, url, downloadProgress) => const WHShimmerEffect(width: 55, height: 55, radius: 55,),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            )
+            : Image(
+              fit: fit,
+              image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
+              color: overlayColor,
+            ),
         ),
       ),
     );

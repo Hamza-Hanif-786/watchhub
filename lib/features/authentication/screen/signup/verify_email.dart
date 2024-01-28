@@ -1,23 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:watchhub/common/widgets/success_screen/success_screen.dart';
-import 'package:watchhub/features/authentication/screen/login/login.dart';
+import 'package:watchhub/data/repositories/authentication/authentication_repository.dart';
+import 'package:watchhub/features/authentication/controllers/signup/verify_email_controller.dart';
 import 'package:watchhub/utils/constants/image_strings.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
 import 'package:watchhub/utils/constants/text_strings.dart';
 import 'package:watchhub/utils/helpers/helper_functions.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+  const VerifyEmailScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VerifyEmailController());
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(onPressed: () => Get.offAll(() => const LoginScreen()), icon: const Icon(CupertinoIcons.clear))
+          IconButton(
+            onPressed: () => AuthenticationRepository.instance.logout(), 
+            icon: const Icon(CupertinoIcons.clear)
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -35,7 +42,7 @@ class VerifyEmailScreen extends StatelessWidget {
               /// Title and Subtitle
               Text(WatchHubTextStrings.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
               const SizedBox(height: WatchHubSizes.spaceBtwItems),
-              Text('support@watchhub.com', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
+              Text(email ?? '', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
               const SizedBox(height: WatchHubSizes.spaceBtwItems),
               Text(WatchHubTextStrings.confirmEmailSubTitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
               const SizedBox(height: WatchHubSizes.spaceBtwSections),
@@ -44,21 +51,17 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(() => SuccessScreen(
-                    title: WatchHubTextStrings.yourAccountCreatedTitle, 
-                    subtitle: WatchHubTextStrings.yourAccountCreatedSubTitle, 
-                    image: WatchHubImages.staticSuccessIllustration, 
-                    onPressed: () => Get.to(() => const LoginScreen()),
-                  ), transition: Transition.fadeIn
-                  ),
+                  onPressed: () => controller.checkEmailVerificationStatus(),
                   child: const Text(WatchHubTextStrings.whContinue),
                 )
               ),
+
               const SizedBox(height: WatchHubSizes.spaceBtwItems),
+
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.sendEmailVerification(),
                   child: const Text(WatchHubTextStrings.resendEmail),
                 )
               ),

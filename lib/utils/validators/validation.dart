@@ -60,10 +60,10 @@ class WatchHubValidator {
     }
 
     // Regular Expression for phone number validation
-    final phoneRegExp = RegExp(r'^\d{10}$');
+    final phoneRegExp = RegExp(r'^\d{11}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number format (10 digits required)';
+      return 'Invalid phone number format (11 digits required)';
     }
 
     return null;

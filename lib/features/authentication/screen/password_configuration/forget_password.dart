@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
-import "package:watchhub/features/authentication/screen/password_configuration/reset_password.dart";
+import "package:watchhub/features/authentication/controllers/forget_password/forget_password_controller.dart";
 import "package:watchhub/utils/constants/colors.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import "package:watchhub/utils/constants/text_strings.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
+import "package:watchhub/utils/validators/validation.dart";
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
@@ -13,6 +14,8 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = WatchHubHelperFunctions.isDarkMode(context);
+    final controller = Get.put(ForgetPasswordController());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -34,10 +37,16 @@ class ForgetPassword extends StatelessWidget {
 
 
             /// Text Field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: WatchHubTextStrings.email,
-                prefixIcon: Icon(Iconsax.direct_right),
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: controller.email,
+                cursorOpacityAnimates: true,
+                validator: WatchHubValidator.validateEmail,
+                decoration: const InputDecoration(
+                  labelText: WatchHubTextStrings.email,
+                  prefixIcon: Icon(Iconsax.direct_right),
+                ),
               ),
             ),
             const SizedBox(height: WatchHubSizes.spaceBtwSections),
@@ -45,7 +54,10 @@ class ForgetPassword extends StatelessWidget {
             /// Submit Button
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () => Get.off(() => const ResetPassword()), child: const Text(WatchHubTextStrings.submit)),
+              child: ElevatedButton(
+                onPressed: () => controller.sendPasswordResetEmail(), 
+                child: const Text(WatchHubTextStrings.submit)
+              ),
             )
           ],
         ),

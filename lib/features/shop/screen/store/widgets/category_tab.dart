@@ -3,11 +3,15 @@ import "package:watchhub/common/widgets/brands/brand_show_case.dart";
 import "package:watchhub/common/widgets/layouts/grid_layout.dart";
 import "package:watchhub/common/widgets/products/product_cards/product_cart_vertical.dart";
 import "package:watchhub/common/widgets/texts/section_heading.dart";
+import "package:watchhub/features/shop/models/category_model.dart";
+import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/utils/constants/image_strings.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 
 class WHCategoryTab extends StatelessWidget {
-  const WHCategoryTab({super.key});
+  const WHCategoryTab({super.key, required this.category});
+
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class WHCategoryTab extends StatelessWidget {
               WHSectionHeading(title: 'You might like', showActionButton: true, onPressed: () {}),
               const SizedBox(height: WatchHubSizes.spaceBtwItems),
 
-              WHGridLayout(itemCount: 4, itemBuilder: (_,index) => const WHProductCardVertical()),
+              WHGridLayout(itemCount: 4, itemBuilder: (_,index) => WHProductCardVertical(product: ProductModel.empty())),
               const SizedBox(height: WatchHubSizes.spaceBtwSections),
 
             ],

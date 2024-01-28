@@ -8,22 +8,27 @@ import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
 import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
+import 'package:watchhub/features/shop/controllers/product/product_controller.dart';
+import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/features/shop/screen/product_details/product_detail.dart";
 import "package:watchhub/utils/constants/colors.dart";
 import "package:watchhub/utils/constants/enums.dart";
-import "package:watchhub/utils/constants/image_strings.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
 
 class WHProductCardVertical extends StatelessWidget {
-  const WHProductCardVertical({super.key});
+  const WHProductCardVertical({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = WatchHubHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailScreen(), transition: Transition.rightToLeftWithFade),
+      onTap: () => Get.to(() => ProductDetailScreen(product: product), transition: Transition.rightToLeftWithFade),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -37,13 +42,14 @@ class WHProductCardVertical extends StatelessWidget {
       
             /// Thumbnail, Wishlist Button, Discount Tag
             WHRoundedContainer(
-              height: 180,
+              height: 170,
+              width: 180,
               padding: const EdgeInsets.all(WatchHubSizes.sm),
               backgroundColor: dark ? WatchHubColors.dark : WatchHubColors.light,
               child: Stack(
                 children: [
                   /// Thumbnail image
-                  const WHRoundedImage(imageUrl: WatchHubImages.smartIcon, applyImageRadius: true),
+                  WHRoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: true),
       
                   // Sale Tag
                   Positioned(
@@ -52,7 +58,7 @@ class WHProductCardVertical extends StatelessWidget {
                       radius: WatchHubSizes.sm,
                       backgroundColor: WatchHubColors.secondary.withOpacity(0.8),
                       padding: const EdgeInsets.symmetric(horizontal: WatchHubSizes.sm, vertical: WatchHubSizes.xs),
-                      child: Text("25%", style: Theme.of(context).textTheme.labelLarge!.apply(color: WatchHubColors.black)),
+                      child: Text("$salePercentage%", style: Theme.of(context).textTheme.labelLarge!.apply(color: WatchHubColors.black)),
                     ),
                   ),
       
@@ -72,17 +78,17 @@ class WHProductCardVertical extends StatelessWidget {
             const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
       
             /// ------ Details
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: WatchHubSizes.sm),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: WatchHubSizes.sm),
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    WHProductTitleText(title: 'Smart Watch', smallSize: false),
-                    SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
+                    WHProductTitleText(title: product.title, smallSize: true),
+                    const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
                     WHBrandTitleWithVerifiedIcon(
-                      title: 'Apple',
+                      title: product.brand!.name,
                       brandTextSize: TextSizes.medium,
                     )
                   ],
@@ -96,12 +102,29 @@ class WHProductCardVertical extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+            
                 // Price
-                const Padding(
-                  padding: EdgeInsets.only(left: WatchHubSizes.sm),
-                  child: WHProductPriceText(price: '35.0'),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if(product.productType == ProductType.single.toString() && product.salePrice > 0) 
+                        Padding(
+                          padding: const EdgeInsets.only(left: WatchHubSizes.xs),
+                          child: Text(
+                            "\$${product.price}",
+                            style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
+                          ),
+                        ),
+                  
+                        Padding(
+                          padding: const EdgeInsets.only(left: WatchHubSizes.xs),
+                          child: WHProductPriceText(price: controller.getProductPrice(product)),
+                        )
+                    ],
+                  ),
                 ),
-
+            
                 // Add to cart button
                 Container(
                   decoration: const BoxDecoration(
@@ -118,7 +141,7 @@ class WHProductCardVertical extends StatelessWidget {
                   ),
                 )
               ]
-            )
+            ),
       
           ],
         ),

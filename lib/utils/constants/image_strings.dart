@@ -20,7 +20,25 @@ class WatchHubImages {
   static const String deliveredInPlaneIllustration = "assets/images/animations/sammy-line-come-back-later.png";
   static const String deliveredEmailIllustration = "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const String verifyIllustration = "assets/images/animations/sammy-line-travel-backpack-with-passport-and-air-ticket.gif";
-  static const String docerAnimation = "assets/images/animations/animation-of-docer.json";
+
+  // Lottie Animations
+  static String cartAnimation = "assets/images/animations/lady-adding-product-in-cart-animation.json";
+  static String orderCompletedAnimation = "assets/images/animations/order-complete-car-delivery-animation.json";
+  static String package= "assets/images/animations/packaging-in-progress.json";
+  static String paperPlaneAnimation = "assets/images/animations/paper-plane.json";
+  static String carAnimation = "assets/images/animations/animation-lottie-car-rides.json";
+  static String pencilAnimation = "assets/images/animations/pencil-drawing.json";
+  static String docerAnimation = "assets/images/animations/animation-of-docer.json";
+  static String searchAnimation = "assets/images/animations/searching.json";
+  static String emptyAnimation = "assets/images/animations/empty-file.json";
+  static String securityAnimation = "assets/images/animations/security-icon-transparent.json";
+  static String successfullyRegisterAnimation = "assets/images/animations/check-register.json";
+  static String thankYouAnimation = "assets/images/animations/thank-you.json";
+  static String paymentSuccessfulAnimation = "assets/images/animations/payment-successful.json";
+  static String loadingJuggleAnimation = "assets/images/animations/loading-juggle.json";
+  static String cloudUploadingAnimation = "assets/images/animations/cloud-uploading-animation.json";
+  static String loaderAnimation = "assets/images/animations/loader-animation.json";
+
 
   // Categories Icon
 
@@ -37,7 +55,8 @@ class WatchHubImages {
   static const String promoBanner1 = "assets/images/banners/promobanner1.jpg";
   static const String promoBanner2 = "assets/images/banners/promobanner2.jpg";
   static const String promoBanner3 = "assets/images/banners/promobanner3.jpg";
-
+  static const String promoBanner4 = "assets/images/banners/promobanner4.png";
+  static const String promoBanner5 = "assets/images/banners/promobanner5.png";
   // brands
 
   static const String appleLogo = "assets/icons/brands/apple_logo.png";

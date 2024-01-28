@@ -20,7 +20,7 @@ class BrandProducts extends StatelessWidget {
               WHBrandCard(showBorder: true),
               SizedBox(height: WatchHubSizes.spaceBtwSections),
 
-              WHSortableProducts()
+              WHSortableProducts(products: [])
             ]
           )
         )

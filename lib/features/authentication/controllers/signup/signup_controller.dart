@@ -36,6 +36,12 @@ class SignupController extends GetxController {
         return;
       }
 
+      // Form Validation
+      if (!signupFormKey.currentState!.validate()) {
+        WHFullScreenLoader.stopLoading();
+        return;
+      }
+
       // Privacy Policy Check
       if (!privacyPolicy.value) {
         WHFullScreenLoader.stopLoading();
@@ -46,12 +52,7 @@ class SignupController extends GetxController {
         return;
       }
       
-      // Form Validation
-      if (!signupFormKey.currentState!.validate()) {
-        WHFullScreenLoader.stopLoading();
-        return;
-      }
-
+    
       // Register user in the Firebase Authentication & Save user data in the Firebase
       final userCredential = await AuthenticationRepository.instance.registerWithEmailAndPassword(email.text.trim(), password.text.trim());
 
@@ -76,7 +77,7 @@ class SignupController extends GetxController {
       WHLoaders.successSnackBar(title: 'Congratulations', message: 'Your account has been created! Verfiy email to continue');
 
       // Move to Verify Email Screen
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
       
     } catch (e) {
       // Remove Loader

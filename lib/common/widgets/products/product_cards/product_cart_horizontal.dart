@@ -7,6 +7,7 @@ import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
 import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
+import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/features/shop/screen/product_details/product_detail.dart";
 import "package:watchhub/utils/constants/colors.dart";
 import "package:watchhub/utils/constants/image_strings.dart";
@@ -21,7 +22,7 @@ class WHProductCardHorizontal extends StatelessWidget {
     final dark = WatchHubHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailScreen(), transition: Transition.rightToLeftWithFade),
+      onTap: () => Get.to(() => ProductDetailScreen(product: ProductModel.empty()), transition: Transition.rightToLeftWithFade),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(1),
