@@ -1,6 +1,8 @@
 import "package:get/get.dart";
 import "package:watchhub/data/repositories/categories/category_repository.dart";
+import "package:watchhub/data/repositories/product/product_repository.dart";
 import "package:watchhub/features/shop/models/category_model.dart";
+import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/utils/popups/loaders.dart";
 
 class CategoryController extends GetxController {
@@ -16,7 +18,6 @@ class CategoryController extends GetxController {
     fetchCategories();
     super.onInit();
   }
-
 
   /// -- Load category Data
   Future<void> fetchCategories() async {
@@ -41,10 +42,26 @@ class CategoryController extends GetxController {
   } 
    
   /// -- Load selected category Data
-   
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+      final subCategories = await _categoryRepository.getSubCategories(categoryId);
+      return subCategories;
+    } catch (e) {
+      WHLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return [];
+    }
+  } 
    
   /// -- Get Category Or Sub Category Products
-  
+  Future<List<ProductModel>> getCategoryProducts({required String categoryId, int limit = 10}) async {
+    try {
+      final products = await ProductRepository.instance.getProductsForCategory(categoryId: categoryId, limit: limit);
+      return products;
+    } catch (e) {
+      WHLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return [];
+    }
+  }
   
 }
 

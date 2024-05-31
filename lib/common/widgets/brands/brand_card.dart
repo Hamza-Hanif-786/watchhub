@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:watchhub/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:watchhub/common/widgets/images/wh_circular_image.dart';
 import 'package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart';
+import 'package:watchhub/features/shop/models/brand_model.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 import 'package:watchhub/utils/constants/enums.dart';
-import 'package:watchhub/utils/constants/image_strings.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
 import 'package:watchhub/utils/helpers/helper_functions.dart';
 
@@ -12,9 +12,11 @@ class WHBrandCard extends StatelessWidget {
   const WHBrandCard({
     super.key,
     this.onTap,
-    required this.showBorder
+    required this.showBorder, 
+    required this.brand
   });
 
+  final BrandModel brand;
   final void Function()? onTap;
   final bool showBorder;
 
@@ -33,8 +35,8 @@ class WHBrandCard extends StatelessWidget {
             /// -- Icon
             Flexible(
               child: WHCircularImage(
-                isNetworkImage: false,
-                image: WatchHubImages.appleLogo,
+                isNetworkImage: true,
+                image: brand.image,
                 backgroundColor: Colors.transparent,
                 overlayColor: dark ? WatchHubColors.white : WatchHubColors.black,
               ),
@@ -47,9 +49,9 @@ class WHBrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const WHBrandTitleWithVerifiedIcon(title: 'Apple', brandTextSize: TextSizes.large),
+                  WHBrandTitleWithVerifiedIcon(title: brand.name, brandTextSize: TextSizes.large),
                   Text(
-                    '5 Products',
+                    '${brand.productsCount ?? 0} products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   )

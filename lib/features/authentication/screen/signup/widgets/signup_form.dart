@@ -123,22 +123,26 @@ class WHSignUpForm extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: WatchHubSizes.spaceBtwItems),
-              Text.rich(TextSpan(
-                children: [
-                  TextSpan(text: '${WatchHubTextStrings.iAgreeTo} ', style: Theme.of(context).textTheme.bodySmall),
-                  TextSpan(text: '${WatchHubTextStrings.privacyPolicy} ', style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: dark ? WatchHubColors.white : WatchHubColors.primary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: dark ? WatchHubColors.white : WatchHubColors.primary
+            
+                Flexible(
+                  child: Text.rich(TextSpan(
+                    children: [
+                      TextSpan(text: '${WatchHubTextStrings.iAgreeTo} ', style: Theme.of(context).textTheme.bodySmall),
+                      TextSpan(text: '${WatchHubTextStrings.privacyPolicy} ', style: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: dark ? WatchHubColors.white : WatchHubColors.primary,
+                        decoration: TextDecoration.underline,
+                        decorationColor: dark ? WatchHubColors.white : WatchHubColors.primary
+                      )),
+                      TextSpan(text: '${WatchHubTextStrings.and} ', style: Theme.of(context).textTheme.bodySmall),
+                      TextSpan(text: '${WatchHubTextStrings.termsOfuse} ', style: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: dark ? WatchHubColors.white : WatchHubColors.primary,
+                        decoration: TextDecoration.underline,
+                        decorationColor: dark ? WatchHubColors.white : WatchHubColors.primary
+                      )),
+                    ]
                   )),
-                  TextSpan(text: '${WatchHubTextStrings.and} ', style: Theme.of(context).textTheme.bodySmall),
-                  TextSpan(text: '${WatchHubTextStrings.termsOfuse} ', style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: dark ? WatchHubColors.white : WatchHubColors.primary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: dark ? WatchHubColors.white : WatchHubColors.primary
-                  )),
-                ]
-              ))
+                ),
+              
             ]
           ),
           const SizedBox(height: WatchHubSizes.spaceBtwSections),

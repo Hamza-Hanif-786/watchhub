@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:watchhub/data/services/cloud_storage/firebase_storage_service.dart';
 import 'package:watchhub/features/shop/models/product_model.dart';
 import 'package:watchhub/utils/constants/enums.dart';
+import 'package:watchhub/utils/exceptions/firebase_exceptions.dart';
+import 'package:watchhub/utils/exceptions/platform_exceptions.dart';
 
 class ProductRepository extends GetxController {
   static ProductRepository get instance => Get.find();
@@ -19,9 +21,9 @@ class ProductRepository extends GetxController {
       final snapshot = await _db.collection('Products').where('IsFeatured', isEqualTo: true).limit(30).get();
       return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
     } on FirebaseException catch (e) {
-      throw e.message!;
+      throw WHFirebaseException(e.code).message;
     } on PlatformException catch (e) {
-      throw e.message!;
+      throw WHPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -33,24 +35,81 @@ class ProductRepository extends GetxController {
       final snapshot = await _db.collection('Products').where('IsFeatured', isEqualTo: true).get();
       return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
     } on FirebaseException catch (e) {
-      throw e.message!;
+      throw WHFirebaseException(e.code).message;
     } on PlatformException catch (e) {
-      throw e.message!;
+      throw WHPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
   }
 
-  // Get Products Based on the brands
+  // Get Products Based on the Query
   Future<List<ProductModel>> fetchProductsByQuery(Query query) async{
     try {
       final querySnapshot = await query.get();
       final List<ProductModel> productList = querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)).toList();
       return productList;
     } on FirebaseException catch (e) {
-      throw e.message!;
+      throw WHFirebaseException(e.code).message;
     } on PlatformException catch (e) {
-      throw e.message!;
+      throw WHPlatformException(e.code).message;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+
+  // Get Products Based on the Query
+  Future<List<ProductModel>> getFavouriteProducts(List<String> productIds) async{
+    try {
+      final snapshot = await _db.collection('Products').where(FieldPath.documentId, whereIn: productIds).get();
+      return snapshot.docs.map((querySnapshot) => ProductModel.fromSnapshot(querySnapshot)).toList();
+    } on FirebaseException catch (e) {
+      throw WHFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw WHPlatformException(e.code).message;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+
+  // Get Products Based on the Brands
+  Future<List<ProductModel>> getProductsForBrand({required String brandId, int limit = -1}) async{
+    try {
+      final querySnapshot = limit == -1 
+        ? await _db.collection('Products').where('Brand.Id', isEqualTo: brandId).get() 
+        : await _db.collection('Products').where('Brand.Id', isEqualTo: brandId).limit(limit).get();
+      final products = querySnapshot.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      return products;
+    } on FirebaseException catch (e) {
+      throw WHFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw WHPlatformException(e.code).message;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+
+   // Get Products Based on the Category
+  Future<List<ProductModel>> getProductsForCategory({required String categoryId, int limit = -1}) async{
+    try {
+      QuerySnapshot productCategoryQuery = limit == -1 
+        ? await _db.collection('ProductCategory').where('categoryId', isEqualTo: categoryId).get() 
+        : await _db.collection('ProductCategory').where('categoryId', isEqualTo: categoryId).limit(limit).get();
+
+      List<String> productIds = productCategoryQuery.docs.map((doc) => doc['productId'] as String).toList();
+
+      final productsQuery = await _db.collection('Products').where(FieldPath.documentId, whereIn: productIds).get();
+
+      List<ProductModel> products = productsQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      
+      return products;
+    } on FirebaseException catch (e) {
+      throw WHFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw WHPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -109,11 +168,11 @@ class ProductRepository extends GetxController {
         await _db.collection("Products").doc(product.id).set(product.toJson());
       }
     } on FirebaseException catch (e) {
-      throw e.message!;
+      throw WHFirebaseException(e.code).message;
     } on SocketException catch (e) {
       throw e.message;
     } on PlatformException catch (e) {
-      throw e.message!;
+      throw WHPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }

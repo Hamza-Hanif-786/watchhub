@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
-import "package:iconsax/iconsax.dart";
+//import "package:get/get.dart";
+//import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/widgets/texts/section_heading.dart";
 import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/bottom_add_to_cart_widget.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_attributes.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_detail_image_slider.dart";
 import "package:watchhub/features/shop/screen/product_details/widgets/product_meta_data.dart";
-import "package:watchhub/features/shop/screen/product_details/widgets/rating_share_widget.dart";
-import "package:watchhub/features/shop/screen/product_reviews/product_reviews.dart";
+//import "package:watchhub/features/shop/screen/product_details/widgets/rating_share_widget.dart";
+//import "package:watchhub/features/shop/screen/product_reviews/product_reviews.dart";
 import "package:watchhub/utils/constants/enums.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import 'package:readmore/readmore.dart';
@@ -22,7 +22,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      bottomNavigationBar: const WHBottomAddToCart(),
+      bottomNavigationBar: WHBottomAddToCart(product: product),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -39,7 +39,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// -- Rating & Share Button
-                  const WHRatingAndShare(),
+                  //const WHRatingAndShare(),
 
                   /// -- Price, Title, Stock & Brand
                   WHProductMetaData(product: product), 
@@ -49,8 +49,8 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(height: WatchHubSizes.spaceBtwSections / 2),
                   
                   /// -- Checkout Button
-                  SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text("Checkout"))),
-                  const SizedBox(height: WatchHubSizes.spaceBtwSections),
+                  // SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text("Checkout"))),
+                  // const SizedBox(height: WatchHubSizes.spaceBtwSections),
 
                   /// -- Description
                   const WHSectionHeading(title: "Description", showActionButton: false,),
@@ -65,18 +65,18 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                    
                   /// -- Reviews
-                  const Divider(),
-                  const SizedBox(height: WatchHubSizes.spaceBtwItems),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const WHSectionHeading(title: "Reviews(199)", showActionButton: false),
-                      IconButton(
-                        icon: const Icon(Iconsax.arrow_right_3, size: 18), 
-                        onPressed: () => Get.to(() => const ProductReviewsScreen(), transition: Transition.rightToLeftWithFade)
-                      ),
-                    ],
-                  ),
+                  // const Divider(),
+                  // const SizedBox(height: WatchHubSizes.spaceBtwItems),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     const WHSectionHeading(title: "Reviews(199)", showActionButton: false),
+                  //     IconButton(
+                  //       icon: const Icon(Iconsax.arrow_right_3, size: 18), 
+                  //       onPressed: () => Get.to(() => const ProductReviewsScreen(), transition: Transition.rightToLeftWithFade)
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),
                 ],
               ),

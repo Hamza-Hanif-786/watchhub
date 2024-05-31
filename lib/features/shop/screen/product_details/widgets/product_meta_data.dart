@@ -28,6 +28,7 @@ class WHProductMetaData extends StatelessWidget {
         /// -- Price & Sale Price
         Row(
           children: [
+            if (salePercentage != null)
             /// Sale Tag
             WHRoundedContainer(
               radius: WatchHubSizes.sm,

@@ -9,11 +9,13 @@ class WHProfileMenu extends StatelessWidget {
     required this.onPressed, 
     required this.title, 
     required this.value,
+    this.showIcon = true
   });
 
   final IconData icon;
   final VoidCallback onPressed;
   final String title, value;
+  final bool? showIcon;
 
   @override
   Widget build(BuildContext context) {

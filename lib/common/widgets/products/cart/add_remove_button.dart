@@ -8,7 +8,13 @@ import 'package:watchhub/utils/helpers/helper_functions.dart';
 class ProductQuantityWithAddRemoveButton extends StatelessWidget {
   const ProductQuantityWithAddRemoveButton({
     super.key,
+    required this.quantity,
+    this.add,
+    this.remove
   });
+
+  final int quantity;
+  final VoidCallback? add, remove;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +28,13 @@ class ProductQuantityWithAddRemoveButton extends StatelessWidget {
           width: 32,
           height: 32,
           size: WatchHubSizes.md, 
-          onPressed: () {}, 
+          onPressed: remove, 
           color: dark ? WatchHubColors.white : WatchHubColors.black,
           backgroundColor: dark ? WatchHubColors.darkerGrey : WatchHubColors.light,
         ),
+
         const SizedBox(width: WatchHubSizes.spaceBtwItems),
-        Text("2", style: Theme.of(context).textTheme.titleSmall),
+        Text(quantity.toString(), style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(width: WatchHubSizes.spaceBtwItems),
         
         WHCircularIcon(
@@ -35,7 +42,7 @@ class ProductQuantityWithAddRemoveButton extends StatelessWidget {
           width: 32,
           height: 32,
           size: WatchHubSizes.md,
-          onPressed: () {},
+          onPressed: add,
           color: WatchHubColors.white,
           backgroundColor: WatchHubColors.primary,
         )

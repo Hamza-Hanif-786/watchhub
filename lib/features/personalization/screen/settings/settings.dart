@@ -73,17 +73,17 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.discount_shape, 
                     title: "My Coupons", 
                     subtitle: "List of all the discounted coupons"
-                    ),
+                  ),
                   const WHSettingsMenuTile(
                     icon: Iconsax.notification, 
                     title: "Notifications", 
                     subtitle: "Set any kind of notification message"
-                    ),
+                  ),
                   const WHSettingsMenuTile(
                     icon: Iconsax.security_card, 
                     title: "Account Privacy", 
                     subtitle: "Manage data usage and connected accounts"
-                    ),
+                  ),
 
                   /// -- App Settings
                   const SizedBox(height: WatchHubSizes.spaceBtwSections),

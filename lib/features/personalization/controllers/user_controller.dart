@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:watchhub/data/repositories/authentication/authentication_repository.dart';
@@ -44,6 +45,19 @@ class UserController extends GetxController {
     } finally {
       profileLoading.value = false;
     }
+  }
+
+  //copy text to clipboard
+  void copyTextToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+
+    Get.snackbar(
+      "Copied", 
+      "Text Copied to Clipboard", 
+      backgroundColor: Colors.blue, 
+      colorText: Colors.white, 
+      snackPosition: SnackPosition.BOTTOM
+    );
   }
 
   /// Save user record from any registration provider

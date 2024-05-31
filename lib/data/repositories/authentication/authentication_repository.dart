@@ -14,6 +14,7 @@ import 'package:watchhub/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:watchhub/utils/exceptions/firebase_exceptions.dart';
 import 'package:watchhub/utils/exceptions/format_exceptions.dart';
 import 'package:watchhub/utils/exceptions/platform_exceptions.dart';
+import 'package:watchhub/utils/local_storage/storage_utility.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -33,18 +34,26 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// Function to show relevant screen
-  screenRedirect() async {
+  void screenRedirect() async {
     final user = _auth.currentUser;
 
     if (user != null) {
+      // if the user is logged in
       if(user.emailVerified) {
+
+        // Initialise user specific storage
+        await WatchHubLocalStorage.init(user.uid);
+
+        // if the user email is verified navigate to home
         Get.offAll(() => const NavigationMenu());
       } else {
+        // if the user email is not verified navigate to verify email
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
       // Local storage
       deviceStorage.writeIfNull('IsFirstTime', true);
+
       // Check if it first time or not
       deviceStorage.read('IsFirstTime') != true  
         ? Get.offAll(() => const LoginScreen()) 

@@ -2,27 +2,32 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/widgets/custom_shapes/containers/rounded_container.dart";
-import "package:watchhub/common/widgets/icons/wh_circular_icon.dart";
 import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
+import "package:watchhub/common/widgets/products/favourite_icon/favourite_icon.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
 import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
+import "package:watchhub/features/shop/controllers/product/product_controller.dart";
 import "package:watchhub/features/shop/models/product_model.dart";
 import "package:watchhub/features/shop/screen/product_details/product_detail.dart";
 import "package:watchhub/utils/constants/colors.dart";
-import "package:watchhub/utils/constants/image_strings.dart";
+import "package:watchhub/utils/constants/enums.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 import "package:watchhub/utils/helpers/helper_functions.dart";
 
 class WHProductCardHorizontal extends StatelessWidget {
-  const WHProductCardHorizontal({super.key});
+  const WHProductCardHorizontal({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = WatchHubHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetailScreen(product: ProductModel.empty()), transition: Transition.rightToLeftWithFade),
+      onTap: () => Get.to(() => ProductDetailScreen(product: product), transition: Transition.rightToLeftWithFade),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(1),
@@ -40,57 +45,79 @@ class WHProductCardHorizontal extends StatelessWidget {
               child: Stack(
                 children: [
                   /// Thumbnail image
-                  const SizedBox(
+                  SizedBox(
                     height: 120,
                     width: 120,
-                    child: WHRoundedImage(imageUrl: WatchHubImages.smartIcon, applyImageRadius: true)
+                    child: WHRoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: true)
                   ),
-
+      
                   // Sale Tag
+                  if (salePercentage != null)
                   Positioned(
                     top: 12,
                     child: WHRoundedContainer(
                       radius: WatchHubSizes.sm,
                       backgroundColor: WatchHubColors.secondary.withOpacity(0.8),
                       padding: const EdgeInsets.symmetric(horizontal: WatchHubSizes.sm, vertical: WatchHubSizes.xs),
-                      child: Text("25%", style: Theme.of(context).textTheme.labelLarge!.apply(color: WatchHubColors.black)),
+                      child: Text("$salePercentage%", style: Theme.of(context).textTheme.labelLarge!.apply(color: WatchHubColors.black)),
                     ),
                   ),
       
                   // Wishlist icon button
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: WHCircularIcon(icon: Iconsax.heart5, color: Colors.red),
+                    child: WHFavouriteIcon(productId: product.id)
                   ),
                 ],
               ),
             ),
-
+      
             /// Details
             SizedBox(
               width: 172,
               child: Padding(
                 padding: const EdgeInsets.only(top: WatchHubSizes.sm, left: WatchHubSizes.sm),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        WHProductTitleText(title: "Apple Smart Watch", smallSize: true),
-                        SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
-                        WHBrandTitleWithVerifiedIcon(title: "Apple"),
+                        WHProductTitleText(title: product.title, smallSize: true),
+                        const SizedBox(height: WatchHubSizes.spaceBtwItems / 2),
+                        WHBrandTitleWithVerifiedIcon(title: product.brand!.name),
                       ],
                     ),
-
+      
                     const Spacer(),
                 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        /// Pricing
-                        const Flexible(child: WHProductPriceText(price: "35.0")),
-
+              
+                        // Price
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if(product.productType == ProductType.single.toString() && product.salePrice > 0) 
+                                Padding(
+                                  padding: const EdgeInsets.only(left: WatchHubSizes.sm),
+                                  child: Text(
+                                    "\$${product.price}",
+                                    style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
+                                  ),
+                                ),
+      
+                                Padding(
+                                  padding: const EdgeInsets.only(left: WatchHubSizes.sm),
+                                  child: WHProductPriceText(price: controller.getProductPrice(product)),
+                                )
+                            ],
+                          ),
+                        ),
+              
                         // Add to cart button
                         Container(
                           decoration: const BoxDecoration(
@@ -106,8 +133,8 @@ class WHProductCardHorizontal extends StatelessWidget {
                             child: Center(child: Icon(Iconsax.add, color: WatchHubColors.white)),
                           ),
                         )
-                      ],
-                    )
+                      ]
+                    ),
                   ],
                 ),
               ),

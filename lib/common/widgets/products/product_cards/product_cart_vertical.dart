@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:iconsax/iconsax.dart";
 import "package:watchhub/common/styles/shadows.dart";
 import "package:watchhub/common/widgets/custom_shapes/containers/rounded_container.dart";
-import "package:watchhub/common/widgets/icons/wh_circular_icon.dart";
 import "package:watchhub/common/widgets/images/wh_rounded_image.dart";
+import "package:watchhub/common/widgets/products/favourite_icon/favourite_icon.dart";
+import "package:watchhub/common/widgets/products/product_cards/add_to_cart_button.dart";
 import "package:watchhub/common/widgets/texts/product_price_text.dart";
 import "package:watchhub/common/widgets/texts/product_title_text.dart";
 import "package:watchhub/common/widgets/texts/wh_brand_title_text_with_verified_icon.dart";
@@ -52,6 +52,7 @@ class WHProductCardVertical extends StatelessWidget {
                   WHRoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: true),
       
                   // Sale Tag
+                  if (salePercentage != null)
                   Positioned(
                     top: 12,
                     child: WHRoundedContainer(
@@ -63,13 +64,10 @@ class WHProductCardVertical extends StatelessWidget {
                   ),
       
                   // Wishlist icon button
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: WHCircularIcon(
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: WHFavouriteIcon(productId: product.id)
                   ),
       
                 ]
@@ -110,7 +108,7 @@ class WHProductCardVertical extends StatelessWidget {
                     children: [
                       if(product.productType == ProductType.single.toString() && product.salePrice > 0) 
                         Padding(
-                          padding: const EdgeInsets.only(left: WatchHubSizes.xs),
+                          padding: const EdgeInsets.only(left: WatchHubSizes.sm),
                           child: Text(
                             "\$${product.price}",
                             style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
@@ -118,7 +116,7 @@ class WHProductCardVertical extends StatelessWidget {
                         ),
                   
                         Padding(
-                          padding: const EdgeInsets.only(left: WatchHubSizes.xs),
+                          padding: const EdgeInsets.only(left: WatchHubSizes.sm),
                           child: WHProductPriceText(price: controller.getProductPrice(product)),
                         )
                     ],
@@ -126,20 +124,7 @@ class WHProductCardVertical extends StatelessWidget {
                 ),
             
                 // Add to cart button
-                Container(
-                  decoration: const BoxDecoration(
-                    color: WatchHubColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(WatchHubSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(WatchHubSizes.productImageRadius)
-                    )
-                  ),
-                  child: const SizedBox(
-                    width: WatchHubSizes.iconLg * 1.2,
-                    height: WatchHubSizes.iconLg * 1.2,
-                    child: Center(child: Icon(Iconsax.add, color: WatchHubColors.white)),
-                  ),
-                )
+                ProductCardAddToCartButton(product: product)
               ]
             ),
       

@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import "package:get/get.dart";
 import 'package:watchhub/common/widgets/appbar/appbar.dart';
 import 'package:watchhub/common/widgets/custom_shapes/curved_edges/curved_edge_widget.dart';
-import 'package:watchhub/common/widgets/icons/wh_circular_icon.dart';
 import 'package:watchhub/common/widgets/images/wh_rounded_image.dart';
+import 'package:watchhub/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:watchhub/features/shop/controllers/product/images_controller.dart';
 import 'package:watchhub/utils/constants/colors.dart';
 import 'package:watchhub/utils/constants/sizes.dart';
@@ -88,7 +87,7 @@ class WHProductImageSlider extends StatelessWidget {
             WHAppBar(
               showBackArrow: true,
               actions: [
-                WHCircularIcon(icon: Iconsax.heart5, onPressed: () {}, color: Colors.red,),
+                WHFavouriteIcon(productId: product.id)
               ],
             )
           ]

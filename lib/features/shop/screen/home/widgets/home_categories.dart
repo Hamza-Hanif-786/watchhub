@@ -34,7 +34,7 @@ class WHHomeCategories extends StatelessWidget {
               return WHVerticalImageText(
                 image: category.image, 
                 title: category.name,
-                onTap: () => Get.to(() => const SubCategoriesScreen())
+                onTap: () => Get.to(() => SubCategoriesScreen(category: category))
               );
             },
           ),

@@ -57,6 +57,8 @@ class WatchHubImages {
   static const String promoBanner3 = "assets/images/banners/promobanner3.jpg";
   static const String promoBanner4 = "assets/images/banners/promobanner4.png";
   static const String promoBanner5 = "assets/images/banners/promobanner5.png";
+  static const String promoBanner6 = "assets/images/banners/promobanner6.png";
+  
   // brands
 
   static const String appleLogo = "assets/icons/brands/apple_logo.png";

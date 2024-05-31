@@ -8,6 +8,7 @@ import "package:watchhub/common/widgets/texts/section_heading.dart";
 import "package:watchhub/features/personalization/controllers/user_controller.dart";
 import "package:watchhub/features/personalization/screen/profile/widgets/change_name.dart";
 import "package:watchhub/features/personalization/screen/profile/widgets/profile_menu.dart";
+import "package:watchhub/features/personalization/screen/settings/settings.dart";
 import "package:watchhub/utils/constants/image_strings.dart";
 import "package:watchhub/utils/constants/sizes.dart";
 
@@ -19,7 +20,11 @@ class ProfileScreen extends StatelessWidget {
     final controller = UserController.instance;
 
     return Scaffold(
-      appBar: const WHAppBar(showBackArrow: true, title: Text("Profile")),
+      appBar: WHAppBar(
+        showBackArrow: true, 
+        title: const Text("Profile"), 
+        leadingOnPressed: () => Get.to(() => const SettingsScreen(), transition: Transition.fadeIn)
+      ),
 
       /// -- Body
       body: SingleChildScrollView(
@@ -71,7 +76,9 @@ class ProfileScreen extends StatelessWidget {
               const WHSectionHeading(title: "Personal Information", showActionButton: false),
               const SizedBox(height: WatchHubSizes.spaceBtwItems),
 
-              WHProfileMenu(title: 'User ID', value: controller.user.value.id, icon: Iconsax.copy, onPressed: () {}),
+              WHProfileMenu(title: 'User ID', value: controller.user.value.id, icon: Iconsax.copy, onPressed: () {
+                controller.copyTextToClipboard(controller.user.value.id);
+              }),
               WHProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: () {}),
               WHProfileMenu(title: 'Phone Number', value: controller.user.value.phoneNumber, onPressed: () {}),
               WHProfileMenu(title: 'Gender', value: 'Male', onPressed: () {}),
